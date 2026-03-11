@@ -71,7 +71,6 @@ CI should run when:
 In GitHub Actions this is defined using an **event trigger**.
 
 ---
-Good choice. ✅
 Running CI on **both `push` and `pull_request`** is the most common setup.
 
 * `push` → validates code pushed directly to branches
