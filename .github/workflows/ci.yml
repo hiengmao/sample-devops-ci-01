@@ -1,0 +1,25 @@
+name: Node.js CI
+on: [push, pull_request] # Automate feedback on every change [9]
+
+jobs:
+  verify-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Linting
+        run: npm run lint # Automated style and bug check [7]
+
+      - name: Run Tests
+        run: npm test # Automated verification of the system [2]
+
+      - name: Deploy
+        if: github.ref == 'refs/heads/main'
+        run: echo "Starting one-step deployment..." # Goal: Facilitate deployment without custom code [11]

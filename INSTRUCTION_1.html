@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Setup a NodeJS project</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="setup-a-nodejs-project">Setup a NodeJS project</h1>
+<p>Below is a <strong>simple, modern setup</strong> for starting a <strong>Node.js project with linting and testing</strong>. This uses common tools used in production projects:</p>
+<ul>
+<li><strong>Node.js + npm</strong></li>
+<li><strong>ESLint</strong> → linting</li>
+<li><strong>Prettier</strong> → formatting</li>
+<li><strong>Jest</strong> → testing</li>
+<li><strong>npm scripts</strong> → automation</li>
+</ul>
+<hr>
+<h1 id="1-prerequisites">1. Prerequisites</h1>
+<p>Install the following first.</p>
+<h3 id="1-install-nodejs">1. Install Node.js</h3>
+<p>Install <strong>LTS version (recommended)</strong> from
+Node.js</p>
+<p>Check installation:</p>
+<pre><code class="language-bash">node -v
+npm -v
+</code></pre>
+<p>Recommended Node version:</p>
+<pre><code>&gt;=18
+</code></pre>
+<hr>
+<h3 id="2-create-a-new-project">2. Create a new project</h3>
+<pre><code class="language-bash"><span class="hljs-built_in">mkdir</span> my-node-project
+<span class="hljs-built_in">cd</span> my-node-project
+npm init -y
+</code></pre>
+<p>This creates:</p>
+<pre><code>package.json
+</code></pre>
+<hr>
+<h1 id="2-project-structure">2. Project Structure</h1>
+<p>A simple structure:</p>
+<pre><code>my-node-project
+│
+├── src
+│   └── index.js
+│
+├── tests
+│   └── sum.test.js
+│
+├── package.json
+├── .eslintrc.json
+├── .prettierrc
+└── .gitignore
+</code></pre>
+<hr>
+<h1 id="3-install-development-dependencies">3. Install Development Dependencies</h1>
+<p>Install linting + testing tools:</p>
+<pre><code class="language-bash">npm install --save-dev eslint prettier jest
+</code></pre>
+<p>Optional useful packages:</p>
+<pre><code class="language-bash">npm install --save-dev eslint-config-prettier eslint-plugin-jest
+</code></pre>
+<hr>
+<h1 id="4-setup-eslint-linting">4. Setup ESLint (Linting)</h1>
+<p>Initialize ESLint:</p>
+<pre><code class="language-bash">npx eslint --init
+</code></pre>
+<p>Recommended answers:</p>
+<pre><code>✔ What do you want to lint? → JavaScript
+✔ How would you like to use ESLint? → check syntax and find problems
+✔ What type of modules does your project use? → commonjs
+✔ framework → none
+✔ typescript → no
+✔ environment → node
+✔ eslint, @eslint/js, globals? Would you like to install them now? → Yes
+✔ Which package manager do you want to use? → npm
+</code></pre>
+<p>Example <code>eslint.config.mjs</code></p>
+<pre><code class="language-js"><span class="hljs-keyword">import</span> js <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@eslint/js&quot;</span>;
+<span class="hljs-keyword">import</span> jest <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;eslint-plugin-jest&quot;</span>;
+<span class="hljs-keyword">import</span> globals <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;globals&quot;</span>;
+<span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;eslint/config&quot;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>([
+  { <span class="hljs-attr">files</span>: [<span class="hljs-string">&quot;**/*.{js,mjs,cjs}&quot;</span>], <span class="hljs-attr">plugins</span>: { js }, <span class="hljs-attr">extends</span>: [<span class="hljs-string">&quot;js/recommended&quot;</span>], <span class="hljs-attr">languageOptions</span>: { <span class="hljs-attr">globals</span>: globals.<span class="hljs-property">browser</span> } },
+  { <span class="hljs-attr">files</span>: [<span class="hljs-string">&quot;**/*.js&quot;</span>], <span class="hljs-attr">languageOptions</span>: { <span class="hljs-attr">sourceType</span>: <span class="hljs-string">&quot;commonjs&quot;</span> } },
+  { <span class="hljs-attr">files</span>: [<span class="hljs-string">&quot;tests/**/*.test.js&quot;</span>], <span class="hljs-attr">plugins</span>: { jest }, <span class="hljs-attr">rules</span>: { ...jest.<span class="hljs-property">configs</span>.<span class="hljs-property">recommended</span>.<span class="hljs-property">rules</span> }, <span class="hljs-attr">languageOptions</span>: { <span class="hljs-attr">globals</span>: globals.<span class="hljs-property">jest</span> } },
+]);
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Make sure the file contains:</p>
+<pre><code class="language-js"><span class="hljs-keyword">import</span> jest <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;eslint-plugin-jest&quot;</span>;
+</code></pre>
+<p>and</p>
+<pre><code class="language-js">{ <span class="hljs-attr">files</span>: [<span class="hljs-string">&quot;tests/**/*.test.js&quot;</span>], <span class="hljs-attr">plugins</span>: { jest }, <span class="hljs-attr">extends</span>: [<span class="hljs-string">&quot;plugin:jest/recommended&quot;</span>], <span class="hljs-attr">languageOptions</span>: { <span class="hljs-attr">globals</span>: globals.<span class="hljs-property">jest</span> } },
+</code></pre>
+</blockquote>
+<hr>
+<h1 id="5-setup-prettier-code-formatting">5. Setup Prettier (Code Formatting)</h1>
+<p>Create <code>.prettierrc</code></p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;semi&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;singleQuote&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;printWidth&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">80</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>Ignore build folders:</p>
+<p><code>.prettierignore</code></p>
+<pre><code>node_modules
+dist
+coverage
+</code></pre>
+<hr>
+<h1 id="6-setup-jest-testing">6. Setup Jest (Testing)</h1>
+<p>Initialize:</p>
+<pre><code class="language-bash">npm init jest@latest
+</code></pre>
+<p>Or manually configure.</p>
+<p>Add to <code>package.json</code>:</p>
+<pre><code class="language-json"><span class="hljs-attr">&quot;scripts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;test&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;jest&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<hr>
+<h1 id="7-example-code">7. Example Code</h1>
+<h3 id="srcsumjs">src/sum.js</h3>
+<pre><code class="language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">a, b</span>) {
+  <span class="hljs-keyword">return</span> a + b;
+}
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = sum;
+</code></pre>
+<hr>
+<h3 id="testssumtestjs">tests/sum.test.js</h3>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> sum = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../src/sum&#x27;</span>);
+
+<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;adds 1 + 2 = 3&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">sum</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">3</span>);
+});
+</code></pre>
+<p>Run tests:</p>
+<pre><code class="language-bash">npm <span class="hljs-built_in">test</span>
+</code></pre>
+<hr>
+<h1 id="8-add-useful-npm-scripts">8. Add Useful npm Scripts</h1>
+<p>Update <code>package.json</code></p>
+<pre><code class="language-json"><span class="hljs-attr">&quot;scripts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;start&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;node src/index.js&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;test&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;jest&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;lint&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;eslint .&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;lint:fix&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;eslint . --fix&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;format&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;prettier --write .&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>Usage:</p>
+<pre><code>npm run lint
+npm run lint:fix
+npm run format
+npm test
+</code></pre>
+<hr>
+<h1 id="9-add-gitignore">9. Add .gitignore</h1>
+<pre><code>node_modules
+coverage
+.env
+</code></pre>
+<hr>
+<h1 id="10-optional-but-recommended">10. Optional but Recommended</h1>
+<h3 id="git-hooks-run-linttests-before-commit">Git hooks (run lint/tests before commit)</h3>
+<p>Install:</p>
+<pre><code class="language-bash">npm install --save-dev husky lint-staged
+</code></pre>
+<p>Used widely in professional projects.</p>
+<hr>
+<h1 id="11-final-result">11. Final Result</h1>
+<p>Your project now supports:</p>
+<ul>
+<li>✅ linting with <strong>ESLint</strong></li>
+<li>✅ formatting with <strong>Prettier</strong></li>
+<li>✅ testing with <strong>Jest</strong></li>
+<li>✅ npm automation scripts</li>
+</ul>
+<hr>
+<p>💡 <strong>Professional tip:</strong>
+Most modern Node projects also include:</p>
+<ul>
+<li><strong>TypeScript</strong></li>
+<li><strong>Vitest</strong> (faster alternative to Jest)</li>
+<li><strong>pnpm</strong> (faster package manager)</li>
+</ul>
+
+            
+            
+        </body>
+        </html>
