@@ -1,31 +1,30 @@
-name: Node CI
-
-on:
+name: Node.js CI
+on: 
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  build:
+  verify-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 24
+          node-version: '18'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Dependencies
+        run: npm install
 
-      - name: Run linter
-        run: npm run lint
+      - name: Run Linting
+        run: npm run lint # Automated style and bug check [7]
 
-      - name: Run tests
-        run: npm test
+      - name: Run Tests
+        run: npm test # Automated verification of the system [2]
+
+      - name: Deploy
+        if: github.ref == 'refs/heads/main'
+        run: echo "Starting one-step deployment..." # Goal: Facilitate deployment without custom code [11]
