@@ -54,7 +54,20 @@ hotfix/security-patch
 
 Edit or add files in your project.
 
-Example:
+Example 1:
+```
+function sum(a, b) {
+  return a + b;
+}
+
+function minus(a, b) {
+  return a - b;
+}
+
+module.exports = { sum, minus };
+```
+
+Example 2:
 
 ```
 src/loginController.js
